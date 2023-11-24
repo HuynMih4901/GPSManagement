@@ -28,9 +28,9 @@ public class Ward {
   @JoinColumn(name = "district_code", referencedColumnName = "code")
   private District district;
 
-  @OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
-  private List<Adminitrator> adminitrators;
-
-  @OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
-  private List<Customer> customers;
+//  @OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
+//  private List<Adminitrator> adminitrators;
+//
+//  @OneToMany(mappedBy = "ward", fetch = FetchType.LAZY)
+//  private List<Customer> customers;
 }
