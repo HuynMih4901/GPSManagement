@@ -37,9 +37,9 @@ public class CustomerController {
       description = "Lấy thành công",
       content = @Content(schema = @Schema(implementation = CustomerDetailResponseDTO.class)))
   public ResponseEntity<?> get(
-     // @RequestHeader(HttpHeaders.AUTHORIZATION) String token, 
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
       @PathVariable String customerCode) {
-    //SecurityUtils.validateToken(token, SecurityUtils.CUSTOMERS);
+    SecurityUtils.validateToken(token, SecurityUtils.CUSTOMERS);
     return ResponseEntity.ok(customerService.getCustomer(customerCode));
   }
 

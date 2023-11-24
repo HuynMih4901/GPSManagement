@@ -28,9 +28,9 @@ public class StatisController {
       description = "Lấy thành công",
       content = @Content(schema = @Schema(implementation = StatisResponseDTO.class)))
   public ResponseEntity<?> getStatis(
-		  //@RequestHeader(HttpHeaders.AUTHORIZATION) String token
+		  @RequestHeader(HttpHeaders.AUTHORIZATION) String token
 		  ) {
-    //SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     return ResponseEntity.ok(statisService.getStatis());
   }
 }

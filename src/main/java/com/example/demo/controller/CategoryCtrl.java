@@ -46,9 +46,9 @@ public class CategoryCtrl {
 	@Operation(summary = "ADMIN - Danh sách danh mục chung")
 	@ApiResponse(responseCode = "200", description = "Lấy thành công")
 	public ResponseEntity<?> get(
-			//@RequestHeader(HttpHeaders.AUTHORIZATION) String token
+			@RequestHeader(HttpHeaders.AUTHORIZATION) String token
 			) {
-		//SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+		SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
 		return ResponseEntity.ok(categoryServ.getList());
 	}
 	

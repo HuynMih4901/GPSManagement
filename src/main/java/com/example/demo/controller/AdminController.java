@@ -25,10 +25,10 @@ public class AdminController {
   @Operation(summary = "ADMIN - Cập nhật Admin")
   @ApiResponse(responseCode = "202", description = "Cập nhật admin thành công")
   public ResponseEntity<?> update(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
       @PathVariable String adminCode,
       @RequestBody @Valid AdminUpdateRequestDTO request) {
-    //SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     adminService.updateAdmin(request, adminCode);
     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }

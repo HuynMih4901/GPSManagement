@@ -34,9 +34,9 @@ public class OrderController {
   @Operation(summary = "ADMIN - Nhập SIM")
   @ApiResponse(responseCode = "201", description = "Thêm SIM thành công")
   public ResponseEntity<?> create(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
       @RequestBody @Valid OrderCreateBodyDTO request) {
-    //SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     orderService.create(request);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
@@ -48,9 +48,9 @@ public class OrderController {
       description = "Lấy thành công",
       content = @Content(schema = @Schema(implementation = Order.class)))
   public ResponseEntity<?> getSimBySimCode(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token, 
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
 		  @PathVariable String orderCode) {
-   // SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     return ResponseEntity.ok(orderService.getOrderByOrderCode(orderCode));
   }
 
@@ -64,10 +64,10 @@ public class OrderController {
               array = @ArraySchema(schema = @Schema(implementation = OrderPageResponseDTO.class))))
   @PageableAsQueryParam
   public ResponseEntity<?> find(
-     // @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
       OrderSearchParamDTO request,
       @Parameter(hidden = true) Pageable pageable) {
-   // SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     return ResponseEntity.ok(orderService.find(request, pageable));
   }
 }

@@ -29,9 +29,9 @@ public class AuthController {
   @Operation(summary = "ADMIN - Đăng ký tài khoản cho khách hàng")
   @ApiResponse(responseCode = "201", description = "Tài khoản được đăng ký thành công")
   public ResponseEntity<?> signUp(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+      @RequestHeader(value = HttpHeaders.AUTHORIZATION) String token,
       @RequestBody @Valid UserSignUpRequestDTO request) {
-   // SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     userService.signUp(request);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }

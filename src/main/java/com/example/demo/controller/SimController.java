@@ -34,9 +34,9 @@ public class SimController {
       description = "Lấy thành công",
       content = @Content(schema = @Schema(implementation = SimResponseDTO.class)))
   public ResponseEntity<?> getSimBySimCode(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token, 
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
 		  @PathVariable String simCode) {
-    //SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     return ResponseEntity.ok(simService.getSimBySimCode(simCode));
   }
 
@@ -50,10 +50,10 @@ public class SimController {
               array = @ArraySchema(schema = @Schema(implementation = SimSearchParamDTO.class))))
   @PageableAsQueryParam
   public ResponseEntity<?> find(
-      //@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
       SimSearchParamDTO request,
       @Parameter(hidden = true) Pageable pageable) {
-   // SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     return ResponseEntity.ok(simService.findSims(request, pageable));
   }
 
@@ -61,9 +61,9 @@ public class SimController {
   @Operation(summary = "ADMIN - Xóa SIM")
   @ApiResponse(responseCode = "204", description = "Xóa thành công")
   public ResponseEntity<?> delete(
-     // @RequestHeader(HttpHeaders.AUTHORIZATION) String token, 
+      @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
 		  @PathVariable int simId) {
-   // SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
+    SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
     simService.delete(simId);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
