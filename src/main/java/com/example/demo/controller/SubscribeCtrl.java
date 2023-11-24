@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.subcrible.SubscribeCreateDTO;
 import com.example.demo.model.Subscribe;
 import com.example.demo.security.SecurityUtils;
 import com.example.demo.service.SubscribeServ;
@@ -32,7 +33,7 @@ public class SubscribeCtrl {
 	@ApiResponse(responseCode = "201", description = "Thêm subscribe thành công")
 	public ResponseEntity<?> create(
 			// @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-			@RequestBody @Valid Subscribe request) {
+			@RequestBody @Valid SubscribeCreateDTO request) {
 		// SecurityUtils.validateToken(token, SecurityUtils.ADMINS);
 		subscribeServ.addSubscribe(request);
 		return ResponseEntity.status(HttpStatus.CREATED).build();

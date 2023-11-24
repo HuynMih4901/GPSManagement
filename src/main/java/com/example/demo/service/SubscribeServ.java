@@ -1,10 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.dto.subcrible.SubscribeCreateDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,11 +14,15 @@ import com.example.demo.exceptions.GPSException;
 import com.example.demo.model.Subscribe;
 import com.example.demo.repository.SubscribeRepo;
 
-@Service
 
+
+@RequiredArgsConstructor
+@Service
 public class SubscribeServ {
-	@Autowired
-	SubscribeRepo subscribeRepo;
+
+	private final SubscribeRepo subscribeRepo;
+	private final AddressService addressService;
+
 
 	public List<Subscribe> getList() {
 		return subscribeRepo.findAll();
@@ -35,8 +39,29 @@ public class SubscribeServ {
 		return subscribe;
 	}
 
-	public Subscribe addSubscribe(Subscribe subscribe) {
-		return subscribeRepo.save(subscribe);
+	public void addSubscribe(SubscribeCreateDTO request) {
+		Subscribe newSubcrible =
+				Subscribe.builder()
+						.vehicle(request.getVehicle())
+						.controlPlate(request.getControlPlate())
+						.gps(request.getGps())
+						.type(request.getType())
+						.sim(request.getSim())
+						.provider(request.getProvider())
+						.service(request.getService())
+						.des(request.getDes())
+						.startDate(request.getStartDate())
+						.enddate(request.getEnddate())
+						.url(request.getUrl())
+						.fullname(request.getFullname())
+						.email(request.getEmail())
+						.phone(request.getPhone())
+						.username(request.getUsername())
+						.password(request.getPassword())
+						.status(request.getStatus())
+						.ward(addressService.getWard(request.getWardCode()))
+						.build();
+		subscribeRepo.save(newSubcrible);
 	}
 
 	public Subscribe updateSubscribe(int id, Subscribe subscribe) {
